@@ -14,11 +14,15 @@ protocol WeatherDelegate{
 
 struct WeatherLogic{
     var delegate: WeatherDelegate?
-    let apiURL = "https://api.openweathermap.org/data/2.5/weather?appid=e26971d527a650ebd56eefbbbee43346&units=metric"
+    let apiKey = Bundle.main.object(forInfoDictionaryKey: "API_KEY") as! String
+    var apiURL : String{
+        return "https://api.openweathermap.org/data/2.5/weather?units=metric&appid=\(apiKey)"
+    }
     
     //by city name
     func getWeather(_ cityName: String){
         let url = apiURL + "&q=\(cityName)"
+        print(url)
         performApiRequest(url)
     }
     
